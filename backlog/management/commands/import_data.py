@@ -35,7 +35,7 @@ for game in filtered_data:
     # Creating categories
     category_names = filtered_data.get("categories", "").split(",")
     categories = [
-        Genre.objects.get_or_create(name=category.strip())[0] for category in category_names
+        Category.objects.get_or_create(name=category.strip())[0] for category in category_names
     ]
 
     # Creating game
