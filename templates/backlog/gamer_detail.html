@@ -1,0 +1,60 @@
+{% extends 'layouts/base_sections.html' %}
+{% load static %}
+
+{% block title %} Material Kit 2 by Creative Tim {% endblock title %}
+
+{% block body %} class="blog-author bg-gray-100" {% endblock body %}
+
+{% block header %}
+
+  {% include 'includes/navigation.html' %}
+
+{% endblock header %}
+
+{% block content %}
+
+
+  <section class="py-sm-7 py-5 position-relative">
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-12 mx-auto">
+          <div class="row py-lg-7 py-5">
+            <div class="col-lg-3 col-md-5 position-relative my-auto">
+              <img class="img border-radius-lg max-width-300 w-300 position-relative z-index-2"
+                   src="{{ game.image_url}}" alt="game art">
+            </div>
+            <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="mb-0">{{ game.title }}</h4>
+                <h5 class="mb-0">
+                  Developers:
+                  {% for dev in game.developers.all %}
+                    {{ dev.name }}
+                  {% endfor %}
+                </h5>
+              </div>
+              <p class="text-lg mb-0">
+                {{ game.description|safe }}
+              </p>
+            <br>
+            <button type="button" class="btn bg-gradient-primary w-auto me-1 mb-0">Add to my Backlog</button>
+            <button type="button" class="btn bg-gradient-info w-auto me-1 mb-0">Add to Whishlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+
+
+{% endblock content %}
+
+{% block footer %}
+
+  {% include 'includes/footer_fullscreen.html' %}
+
+{% endblock footer %}

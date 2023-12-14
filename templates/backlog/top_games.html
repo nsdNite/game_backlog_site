@@ -1,0 +1,73 @@
+{% extends 'layouts/base_sections.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+
+
+{% block content %}
+  <div class="page-header min-vh-100 relative"
+       style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <h2 class="text-white pt-3 mt-n10">Browsing all games.</h2>
+          <h4 class="text-white pt-5  mt-n5">Click on game title to see game info</h4>
+          <div class="col-4 mx-auto">
+            <form method="GET" action="" class="form-inline">
+              <div class="input-group">
+                {{ search_form|crispy }}
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-primary">⌕</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {% if game_list %}
+        <table class="table">
+          <tr>
+            <th>Game ID</th>
+            <th>Game Title</th>
+            <th>Developers</th>
+            <th>Date of release</th>
+            <th>Metacritic score</th>
+          </tr>
+
+          {% for game in game_list %}
+            <tr>
+              <td>
+                {{ game.id }}
+              </td>
+              <td>
+                <a class="link-white" href="{% url "backlog:game-detail" pk=game.id %} ">{{ game.title }}</a> 🗃️ ❤️
+              </td>
+              <td>
+                {{ game.developers.all|join:", " }}
+              </td>
+              <td>
+                {{ game.release_date }}
+              </td>
+              <td>
+                {% if game.meta_score %}
+                  {{ game.meta_score }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+
+      {% else %}
+        <p>There ane no games!</p>
+      {% endif %}
+      {% block pagination %}
+        {% include "includes/pagination.html" %}
+      {% endblock %}
+    </div>
+
+  </div>
+
+{% endblock %}
