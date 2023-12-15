@@ -1,0 +1,75 @@
+{% extends 'layouts/base_sections.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+
+
+{% block content %}
+  <div class="page-header min-vh-100 relative"
+       style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <h2 class="text-white pt-3 mt-n7">Browsing all user profiles</h2>
+          <h4 class="text-white pt-5  mt-n5">Click on user to see info</h4>
+          <div class="col-4 mx-auto">
+            <form method="GET" action="" class="form-inline">
+              <div class="input-group">
+                {{ search_form|crispy }}
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-primary">⌕</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {% if gamer_list %}
+        <table class="table">
+          <tr>
+            <th>ID</th>
+            <th>Usernames</th>
+            <th>Date joined</th>
+            <th>Games in backlog</th>
+            {% if user.is_superuser %}
+              <th>Delete</th>
+            {% endif %}
+          </tr>
+
+          {% for gamer in gamer_list %}
+            <tr>
+              <td>
+                {{ gamer.id }}
+              </td>
+              <td>
+                <a class="link-white" href="{{ gamer.get_absolute_url }}">{{ gamer.username }} {% if user == gamer %}
+                  (Me){% endif %}
+              </td>
+              <td>
+                {{ gamer.date_joined }}
+              </td>
+              <td>
+                {{ gamer.games.count }}
+              </td>
+              <td>
+                <a href="{% url 'backlog:gamer-delete' pk=gamer.id %}"
+                   class="btn bg-gradient-danger w-100 me-1 mb-0 btn-sm">
+                  Delete </a>
+              </td>
+
+            </tr>
+          {% endfor %}
+        </table>
+
+      {% else %}
+        <p>There ane no users!</p>
+      {% endif %}
+      {% block pagination %}
+        {% include "includes/pagination.html" %}
+      {% endblock %}
+    </div>
+
+  </div>
+
+{% endblock %}
