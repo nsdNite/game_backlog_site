@@ -1,4 +1,5 @@
 {% extends 'layouts/base_sections.html' %}
+{% load crispy_forms_filters %}
 {% load static %}
 
 {% block title %} Material Kit 2 by Creative Tim {% endblock title %}
@@ -18,17 +19,22 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <h2 class="text-white pt-3 mt-n10">{{ developer.name }} games</h2>
+          <h2 class="text-white pt-3 mt-n10">{{ genre.name }} games</h2>
           <h4 class="text-white pt-5  mt-n5">Click on game title to see game info</h4>
-            <div class="row text-center py-3 mt-1">
-              <div class="col-4 mx-auto">
-                <input type="text" placeholder="Search game by title..." class="form-control">
+          <div class="col-4 mx-auto">
+            <form method="GET" action="" class="form-inline">
+              <div class="input-group">
+                {{ search_form|crispy }}
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-primary">⌕</button>
+                </div>
               </div>
-            </div>
+            </form>
+          </div>
         </div>
       </div>
 
-      {% if developer.games %}
+      {% if object_list %}
         <table class="table">
           <tr>
             <th>Game ID</th>
@@ -37,19 +43,19 @@
             <th>Metacritic score</th>
           </tr>
 
-          {% for game in developer.games.all %}
+          {% for object in object_list %}
             <tr>
               <td>
-                {{ game.id }}
+                {{ object.id }}
               </td>
               <td>
-                <a class="link-white" href="{% url "backlog:game-detail" pk=game.id %} ">{{ game.title }}</a> 🗃️ ❤️
+                <a class="link-white" href="{% url "backlog:game-detail" pk=object.id %} ">{{ object.title }}</a> 🗃️ ❤️
               </td>
               <td>
-                {{ game.release_date }}
+                {{ object.release_date }}
               </td>
               <td>
-                {% if game.meta_score %}
+                {% if object.meta_score %}
                   {{ game.meta_score }}
                 {% else %}
                   N/A
@@ -60,7 +66,7 @@
         </table>
 
       {% else %}
-        <p>There ane no games by {{ developer.name }}!</p>
+        <p>There ane no games in {{ genre.name }}!</p>
       {% endif %}
       {% block pagination %}
         {% include "includes/pagination.html" %}
@@ -69,25 +75,25 @@
 
   </div>
   <div>
-      <ul class="pagination justify-content-center">
+    <ul class="pagination justify-content-center">
       {% if developer.games.has_previous %}
-    <li class="page-item">
-      <a class="page-link" href="?page= {{ developer.games.previous_page_number }}">
-        <i class="fa fa-angle-left"></i>
-        <span class="sr-only">Previous</span>
-      </a>
+        <li class="page-item">
+        <a class="page-link" href="?page= {{ developer.games.previous_page_number }}">
+          <i class="fa fa-angle-left"></i>
+          <span class="sr-only">Previous</span>
+        </a>
       {% endif %}
-    </li>
-    <li class="page-item active"><a class="page-link" href="">{{ developer.games.number }}</a></li>
+      </li>
+      <li class="page-item active"><a class="page-link" href="">{{ developer.games.number }}</a></li>
       {% if developer.games.all.has_next %}
-    <li class="page-item">
-      <a class="page-link" href="?page= {{ developer.games.next_page_number }}">
-        <i class="fa fa-angle-right"></i>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
+        <li class="page-item">
+          <a class="page-link" href="?page= {{ developer.games.next_page_number }}">
+            <i class="fa fa-angle-right"></i>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
       {% endif %}
-  </ul>
+    </ul>
 
   </div>
 

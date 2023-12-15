@@ -1,4 +1,4 @@
-{% extends 'layouts/base_sections.html' %}
+ {% extends 'layouts/base_sections.html' %}
 {% load static %}
 
 
@@ -9,46 +9,25 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <h2 class="text-white pt-3 mt-n10">Browsing all games.</h2>
-          <h4 class="text-white pt-5  mt-n5">Click on game title to see game info</h4>
-            <div class="row text-center py-3 mt-1">
-              <div class="col-4 mx-auto">
-                <input type="text" placeholder="Search game by title..." class="form-control">
-              </div>
-            </div>
+          <h2 class="text-white pt-3 mt-n10">Browsing all genres.</h2>
+          <h4 class="text-white pt-5  mt-n5">Click on genre to see its games</h4>
         </div>
       </div>
 
-      {% if game_list %}
+      {% if genre_list %}
         <table class="table">
           <tr>
-            <th>Game ID</th>
-            <th>Game Title</th>
-            <th>Developers</th>
-            <th>Date of release</th>
-            <th>Metacritic score</th>
+            <th>Genre name</th>
+            <th>Games in genre</th>
           </tr>
 
-          {% for game in game_list %}
+          {% for genre in genre_list %}
             <tr>
               <td>
-                {{ game.id }}
+                <a class="link-white" href="{% url "backlog:genre-detail" pk=genre.id %} ">{{ genre.name }}</a>
               </td>
               <td>
-                <a class="link-white" href="{% url "backlog:game-detail" pk=game.id %} ">{{ game.title }}</a> 🗃️ ❤️
-              </td>
-              <td>
-                {{ game.developers.all|join:", " }}
-              </td>
-              <td>
-                {{ game.release_date }}
-              </td>
-              <td>
-                {% if game.meta_score %}
-                  {{ game.meta_score }}
-                {% else %}
-                  N/A
-                {% endif %}
+                {{ genre.games.count }}
               </td>
             </tr>
           {% endfor %}

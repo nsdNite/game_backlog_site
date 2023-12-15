@@ -10,22 +10,12 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <h2 class="text-white pt-3 mt-n10">Browsing all games.</h2>
+          <h2 class="text-white pt-3 mt-n9">Top 10 games by Metacritic score.</h2>
           <h4 class="text-white pt-5  mt-n5">Click on game title to see game info</h4>
-          <div class="col-4 mx-auto">
-            <form method="GET" action="" class="form-inline">
-              <div class="input-group">
-                {{ search_form|crispy }}
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-primary">⌕</button>
-                </div>
-              </div>
-            </form>
-          </div>
         </div>
       </div>
 
-      {% if game_list %}
+      {% if top_10_games %}
         <table class="table">
           <tr>
             <th>Game ID</th>
@@ -35,13 +25,13 @@
             <th>Metacritic score</th>
           </tr>
 
-          {% for game in game_list %}
+          {% for game in top_10_games %}
             <tr>
               <td>
                 {{ game.id }}
               </td>
               <td>
-                <a class="link-white" href="{% url "backlog:game-detail" pk=game.id %} ">{{ game.title }}</a> 🗃️ ❤️
+                <a class="link-white" href="{% url "backlog:game-detail" pk=game.id %} ">{{ game.title }}</a>
               </td>
               <td>
                 {{ game.developers.all|join:", " }}

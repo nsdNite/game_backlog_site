@@ -10,8 +10,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <h2 class="text-white pt-3 mt-n7">Browsing all games.</h2>
-          <h4 class="text-white pt-5  mt-n5">Click on game title to see game info</h4>
+          <h2 class="text-white pt-3 mt-n7">Browsing all user profiles</h2>
+          <h4 class="text-white pt-5  mt-n5">Click on user to see info</h4>
           <div class="col-4 mx-auto">
             <form method="GET" action="" class="form-inline">
               <div class="input-group">
@@ -25,69 +25,45 @@
         </div>
       </div>
 
-      {% if game_list %}
+      {% if gamer_list %}
         <table class="table">
           <tr>
-            <th>Game ID</th>
-            <th>Game Title</th>
-            <th>Developers</th>
-            <th>Date of release</th>
-            <th>Metacritic score</th>
-            <th>Backlog</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th>ID</th>
+            <th>Usernames</th>
+            <th>Date joined</th>
+            <th>Games in backlog</th>
+            {% if user.is_superuser %}
+              <th>Delete</th>
+            {% endif %}
           </tr>
 
-          {% for game in game_list %}
+          {% for gamer in gamer_list %}
             <tr>
               <td>
-                {{ game.id }}
+                {{ gamer.id }}
               </td>
               <td>
-                <a class="link-white" href="{% url "backlog:game-detail" pk=game.id %} ">{{ game.title }}</a>
+                <a class="link-white" href="{{ gamer.get_absolute_url }}">{{ gamer.username }} {% if user == gamer %}
+                  (Me){% endif %}
               </td>
               <td>
-                {{ game.developers.all|join:", " }}
+                {{ gamer.date_joined }}
               </td>
               <td>
-                {{ game.release_date }}
+                {{ gamer.games.count }}
               </td>
               <td>
-                {% if game.meta_score %}
-                  {{ game.meta_score }}
-                {% else %}
-                  N/A
-                {% endif %}
-              </td>
-              <td>
-                {% if game in user.games.all %}
-                  <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
-                     class="btn bg-gradient-danger btn-sm w-100 me-1 mb-0 btn-sm">
-                    Remove</a>
-                {% else %}
-                  <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
-                     class="btn bg-gradient-primary btn-sm w-100 me-1 mb-0 btn-sm">
-                    Add
-                  </a>
-                {% endif %}
-              </td>
-              <td>
-                <a href="{% url 'backlog:game-update' pk=game.id %}"
-                   class="btn bg-gradient-primary w-100 me-1 mb-0 btn-sm">
-                  Update </a>
-              </td>
-              <td>
-                <a href="{% url 'backlog:game-delete' pk=game.id %}"
+                <a href="{% url 'backlog:gamer-delete' pk=gamer.id %}"
                    class="btn bg-gradient-danger w-100 me-1 mb-0 btn-sm">
                   Delete </a>
               </td>
-            </tr>
+
             </tr>
           {% endfor %}
         </table>
 
       {% else %}
-        <p>There ane no games!</p>
+        <p>There ane no users!</p>
       {% endif %}
       {% block pagination %}
         {% include "includes/pagination.html" %}
