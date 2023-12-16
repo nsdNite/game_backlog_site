@@ -17,6 +17,7 @@ class Gamer(AbstractUser):
     class Meta:
         verbose_name = "gamer"
         verbose_name_plural = "gamers"
+        ordering = ["username"]
 
     def __str__(self) -> str:
         return f"{self.username} ({self.first_name} {self.last_name})"
@@ -68,6 +69,9 @@ class Game(models.Model):
     release_date = models.DateField(blank=True, null=True)
     image_url = models.URLField()
     added_to_backlog_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["id"]
 
     def __str__(self):
         return self.title

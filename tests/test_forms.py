@@ -57,7 +57,6 @@ class FormSearchTests(TestCase):
         self.assertEqual(list(response.context["gamer_list"]), list(context))
 
     def test_search_developer_by_name(self):
-        # Unknown dev appears at id 1 and is hidden in view
         Developer.objects.create(name="Unknown")
         Developer.objects.create(name="test_dev_02")
         searched_name = "test"

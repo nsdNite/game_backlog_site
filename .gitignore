@@ -12,3 +12,4 @@ venv
 /backlog/migrations/0008_alter_developer_name.py
 /backlog/migrations/0009_alter_developer_name.py
 /backlog/migrations/0010_alter_game_description.py
+.env

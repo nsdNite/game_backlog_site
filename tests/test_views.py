@@ -56,7 +56,6 @@ class PrivateListTest(TestCase):
         )
 
     def test_retrieve_developers_list(self):
-        # Unknown dev appears at id 1 and is hidden in view
         Developer.objects.create(name="Unknown")
         Developer.objects.create(name="test_dev_01")
         Developer.objects.create(name="test_dev_02")

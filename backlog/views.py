@@ -22,8 +22,6 @@ from backlog.models import (
 
 
 def index(request):
-    """View function for the home page of the site."""
-
     num_gamers = Gamer.objects.count()
     num_games = Game.objects.count()
     num_developers = Developer.objects.count()
@@ -52,7 +50,7 @@ def top_game(request):
 
 @login_required
 def toggle_game_backlog(request, pk):
-    gamer = get_object_or_404(Gamer, id=request.user.id)
+    gamer = request.user
     game = get_object_or_404(Game, id=pk)
     if game in gamer.games.all():
         gamer.games.remove(game)
@@ -209,7 +207,6 @@ class GameCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("backlog:game-list")
 
     def form_valid(self, form):
-        # Process the entered developer names
         developer_names = form.cleaned_data.get('developers', '').split(',')
         developers = [
             Developer.objects.get_or_create(name=name.strip())[0]
