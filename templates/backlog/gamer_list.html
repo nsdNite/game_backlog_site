@@ -2,8 +2,6 @@
 {% load crispy_forms_filters %}
 {% load static %}
 
-
-
 {% block content %}
   <div class="page-header min-vh-100 relative"
        style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
@@ -52,18 +50,19 @@
               <td>
                 {{ gamer.games.count }}
               </td>
-              <td>
-                <a href="{% url 'backlog:gamer-delete' pk=gamer.id %}"
-                   class="btn bg-gradient-danger w-100 me-1 mb-0 btn-sm">
-                  Delete </a>
-              </td>
-
+              {% if user.is_superuser %}
+                <td>
+                  <a href="{% url 'backlog:gamer-delete' pk=gamer.id %}"
+                     class="btn bg-gradient-danger w-100 me-1 mb-0 btn-sm">
+                    Delete </a>
+                </td>
+              {% endif %}
             </tr>
           {% endfor %}
         </table>
 
       {% else %}
-        <p>There ane no users!</p>
+        <h2 class="text-white pt-3 mt-n7">There are no users!</h2>
       {% endif %}
       {% block pagination %}
         {% include "includes/pagination.html" %}

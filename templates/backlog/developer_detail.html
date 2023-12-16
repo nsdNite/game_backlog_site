@@ -34,8 +34,10 @@
             <th>Date of release</th>
             <th>Metacritic score</th>
             <th>Backlog</th>
-            <th>Update</th>
-            <th>Delete</th>
+            {% if user.is_staff %}
+              <th>Update</th>
+              <th>Delete</th>
+            {% endif %}
           </tr>
 
           {% for game in object_list %}
@@ -56,7 +58,7 @@
                   N/A
                 {% endif %}
               </td>
-                          <td>
+              <td>
                 {% if game in user.games.all %}
                   <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
                      class="btn bg-gradient-danger btn-sm w-100 me-1 mb-0 btn-sm">
@@ -68,16 +70,18 @@
                   </a>
                 {% endif %}
               </td>
-              <td>
-                <a href="{% url 'backlog:game-update' pk=game.id %}"
-                   class="btn bg-gradient-primary w-100 me-1 mb-0 btn-sm">
-                  Update </a>
-              </td>
-              <td>
-                <a href="{% url 'backlog:game-delete' pk=game.id %}"
-                   class="btn bg-gradient-danger w-100 me-1 mb-0 btn-sm">
-                  Delete </a>
-              </td>
+              {% if user.is_staff %}
+                <td>
+                  <a href="{% url 'backlog:game-update' pk=game.id %}"
+                     class="btn bg-gradient-primary w-100 me-1 mb-0 btn-sm">
+                    Update </a>
+                </td>
+                <td>
+                  <a href="{% url 'backlog:game-delete' pk=game.id %}"
+                     class="btn bg-gradient-danger w-100 me-1 mb-0 btn-sm">
+                    Delete </a>
+                </td>
+              {% endif %}
             </tr>
           {% endfor %}
         </table>

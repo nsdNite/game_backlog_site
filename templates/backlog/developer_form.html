@@ -2,8 +2,6 @@
 {% load crispy_forms_filters %}
 {% load static %}
 
-{% block title %} Material Kit 2 by Creative Tim {% endblock title %}
-
 {% block body %} class="blog-author bg-gray-100" {% endblock body %}
 
 {% block header %}
@@ -13,7 +11,6 @@
 {% endblock header %}
 
 {% block content %}
-
 
   <section class="py-sm-7 py-5 position-relative">
 
@@ -25,16 +22,20 @@
 
             <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <h4 class="mb-0">{{ object|yesno:"Update,Create" }} developer</h4>
-              </div>
-              <p class="text-lg mb-0">
-              <form action="" method="post" novalidate>
-                {% csrf_token %}
-                {{ form|crispy }}
-                <input type="submit" value="Submit" class="btn btn-primary">
-              </form>
-              </p>
-              <br>
+                {% if user.is_staff %}
+                  <h4 class="mb-0">{{ object|yesno:"Update,Create" }} developer</h4>
+                  </div>
+                  <p class="text-lg mb-0">
+                  <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                  </form>
+                  </p>
+                  <br>
+                {% else %}
+                  <h4 class="mb-0">You have no rights for this action!</h4>
+                {% endif %}
             </div>
           </div>
         </div>

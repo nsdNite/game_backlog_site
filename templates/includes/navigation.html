@@ -54,7 +54,7 @@
               <a href="{% url 'backlog:developer-list' %}" class="dropdown-item border-radius-md">
                 Browse all developers
               </a>
-              {% if user.is_superuser %}
+              {% if user.is_staff %}
                 <a href="{% url 'backlog:developer-create' %}" class="dropdown-item border-radius-md">
                   Add Developer
                 </a>
