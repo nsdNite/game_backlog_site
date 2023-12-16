@@ -1,14 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import generic
 from django.views.generic.list import MultipleObjectMixin
 
-from backlog.forms import GameSearchForm, GamerSearchForm, GamerCreationForm
+from backlog.forms import GameSearchForm, GamerSearchForm, GamerCreationForm, GameCreationForm
 from backlog.models import Developer, Game, Gamer, Genre
 
 
@@ -171,13 +170,21 @@ class GamerDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class GameCreateView(LoginRequiredMixin, generic.CreateView):
     model = Game
-    fields = ["title", "developers", "release_date", "genre"]
+    form_class = GameCreationForm
     success_url = reverse_lazy("backlog:game-list")
+
+    def form_valid(self, form):
+        # Process the entered developer names
+        developer_names = form.cleaned_data.get('developers', '').split(',')
+        developers = [Developer.objects.get_or_create(name=name.strip())[0] for name in developer_names if name.strip()]
+        form.instance.save()
+        form.instance.developers.set(developers)
+        return super().form_valid(form)
 
 
 class GameUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Game
-    fields = "__all__"
+    fields = ["title", "developers", "release_date", "genre"]
     success_url = reverse_lazy("backlog:game-list")
 
 

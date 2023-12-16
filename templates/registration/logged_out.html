@@ -1,7 +1,26 @@
-{% extends "base.html" %}
+{% extends 'layouts/base_sections.html' %}
+{% load static %}
+
+{% block title %} Games Backlog {% endblock title %}
+
+{% block body %} class="index-page bg-gray-200" {% endblock body %}
 
 {% block content %}
-<p>Logged out!</p>
+  <header class="header-2">
+    <div class="page-header min-vh-65 relative"
+         style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">Logged out!</h1>
+            <a href="{% url 'login' %}">
+              <h4>Click here to login again.</h4>
+            </a>
+            {% include "includes/waves.html" %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<a href="{% url 'login'%}">Click here to login again.</a>
 {% endblock %}
