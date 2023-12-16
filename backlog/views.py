@@ -7,8 +7,18 @@ from django.utils import timezone
 from django.views import generic
 from django.views.generic.list import MultipleObjectMixin
 
-from backlog.forms import GameSearchForm, GamerSearchForm, GamerCreationForm, GameCreationForm
-from backlog.models import Developer, Game, Gamer, Genre
+from backlog.forms import (
+    GameSearchForm,
+    GamerSearchForm,
+    GamerCreationForm,
+    GameCreationForm
+)
+from backlog.models import (
+    Developer,
+    Game,
+    Gamer,
+    Genre
+)
 
 
 def index(request):
@@ -33,7 +43,11 @@ def index(request):
 
 def top_game(request):
     top_10_games = Game.objects.order_by("-meta_score")[:10]
-    return render(request, "backlog/top_games.html", {"top_10_games": top_10_games})
+    return render(
+        request,
+        "backlog/top_games.html",
+        {"top_10_games": top_10_games}
+    )
 
 
 @login_required
@@ -43,11 +57,20 @@ def toggle_game_backlog(request, pk):
     if game in gamer.games.all():
         gamer.games.remove(game)
     else:
-        gamer.games.add(game, through_defaults={'added_to_backlog_at': timezone.now()})
+        gamer.games.add(
+            game,
+            through_defaults={'added_to_backlog_at': timezone.now()}
+        )
         game.added_to_backlog_at = timezone.now()
         game.save()
 
-    return redirect(request.META.get('HTTP_REFERER', reverse('backlog:game-detail', args=[pk])))
+    return redirect(request.META.get(
+        'HTTP_REFERER',
+        reverse(
+            'backlog:game-detail',
+            args=[pk])
+    )
+    )
 
 
 class GameListView(generic.ListView):
@@ -82,13 +105,19 @@ class DeveloperListView(generic.ListView):
         return Developer.objects.exclude(id=1)
 
 
-class DeveloperDetailView(LoginRequiredMixin, generic.DetailView, MultipleObjectMixin):
+class DeveloperDetailView(
+    LoginRequiredMixin,
+    generic.DetailView,
+    MultipleObjectMixin
+):
     model = Developer
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
         object_list = Game.objects.filter(developers=self.get_object())
-        context = super(DeveloperDetailView, self).get_context_data(object_list=object_list, **kwargs)
+        context = super(DeveloperDetailView, self).get_context_data(
+            object_list=object_list, **kwargs
+        )
         return context
 
 
@@ -114,7 +143,11 @@ class GenreListView(generic.ListView):
     paginate_by = 10
 
 
-class GenreDetailView(LoginRequiredMixin, generic.DetailView, MultipleObjectMixin):
+class GenreDetailView(
+    LoginRequiredMixin,
+    generic.DetailView,
+    MultipleObjectMixin
+):
     model = Genre
     paginate_by = 10
 
@@ -127,7 +160,9 @@ class GenreDetailView(LoginRequiredMixin, generic.DetailView, MultipleObjectMixi
             if title:
                 object_list = object_list.filter(title__icontains=title)
 
-        context = super(GenreDetailView, self).get_context_data(object_list=object_list, **kwargs)
+        context = super(GenreDetailView, self).get_context_data(
+            object_list=object_list, **kwargs
+        )
         context['search_form'] = search_form
         return context
 
@@ -176,7 +211,10 @@ class GameCreateView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         # Process the entered developer names
         developer_names = form.cleaned_data.get('developers', '').split(',')
-        developers = [Developer.objects.get_or_create(name=name.strip())[0] for name in developer_names if name.strip()]
+        developers = [
+            Developer.objects.get_or_create(name=name.strip())[0]
+            for name in developer_names if name.strip()
+        ]
         form.instance.save()
         form.instance.developers.set(developers)
         return super().form_valid(form)
