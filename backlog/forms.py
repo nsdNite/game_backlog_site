@@ -1,10 +1,7 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
-from django_select2.forms import ModelSelect2Widget
 
-from backlog.models import Game, Developer, Gamer
+from backlog.models import Game, Gamer
 
 
 class GameSearchForm(forms.Form):
@@ -61,6 +58,6 @@ class GameCreationForm(forms.ModelForm):
         fields = ["title", "release_date", "genre"]
 
     developers = forms.CharField(max_length=100)
-    release_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-
-
+    release_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
