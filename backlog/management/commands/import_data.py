@@ -23,7 +23,7 @@ class Command(BaseCommand):
             "meta_score",
         ]
 
-        Developer.objects.create(
+        Developer.objects.get_or_create(
             name="Unknown"
         )
 
@@ -31,7 +31,7 @@ class Command(BaseCommand):
             json_data = json.load(json_file)
             counter = 0
 
-        for game_data in json_data[:100]:
+        for game_data in json_data[:110]:
             filtered_data = {key: game_data.get(key) for key in fields_to_load if key in game_data}
             developers_name = filtered_data.get("developers")
             category_names = filtered_data.get("categories")

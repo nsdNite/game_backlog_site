@@ -1,8 +1,6 @@
 {% extends 'layouts/base_sections.html' %}
 {% load static %}
 
-
-
 {% block content %}
   <div class="page-header min-vh-100 relative"
        style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
@@ -25,7 +23,7 @@
             <th>ID</th>
             <th>Developer name</th>
             <th>Games released</th>
-            {% if user.is_superuser %}
+            {% if user.is_staff %}
               <th>Update</th>
               <th>Delete</th>
             {% endif %}
@@ -60,13 +58,12 @@
         </table>
 
       {% else %}
-        <p>There ane no developers!</p>
+        <h2 class="text-white pt-3 mt-n7">There are no developers!</h2>
       {% endif %}
       {% block pagination %}
         {% include "includes/pagination.html" %}
       {% endblock %}
     </div>
-
   </div>
 
 {% endblock %}

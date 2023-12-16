@@ -2,8 +2,6 @@
 {% load crispy_forms_filters %}
 {% load static %}
 
-
-
 {% block content %}
   <div class="page-header min-vh-100 relative"
        style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
@@ -34,7 +32,7 @@
             <th>Date of release</th>
             <th>Metacritic score</th>
             <th>Backlog</th>
-            {% if user.is_superuser %}
+            {% if user.is_staff %}
               <th>Update</th>
               <th>Delete</th>
             {% endif %}
@@ -73,7 +71,7 @@
                   </a>
                 {% endif %}
               </td>
-              {% if user.is_superuser %}
+              {% if user.is_staff %}
                 <td>
                   <a href="{% url 'backlog:game-update' pk=game.id %}"
                      class="btn bg-gradient-primary w-100 me-1 mb-0 btn-sm">
@@ -90,13 +88,12 @@
         </table>
 
       {% else %}
-        <p>There ane no games!</p>
+        <h2 class="text-white pt-3 mt-n7">There are no games!</h2>
       {% endif %}
       {% block pagination %}
         {% include "includes/pagination.html" %}
       {% endblock %}
     </div>
-
   </div>
 
 {% endblock %}

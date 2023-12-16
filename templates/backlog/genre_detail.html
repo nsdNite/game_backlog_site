@@ -2,8 +2,6 @@
 {% load crispy_forms_filters %}
 {% load static %}
 
-{% block title %} Material Kit 2 by Creative Tim {% endblock title %}
-
 {% block body %} class="blog-author bg-gray-100" {% endblock body %}
 
 {% block header %}
@@ -12,14 +10,13 @@
 
 {% endblock header %}
 
-
 {% block content %}
   <div class="page-header min-vh-100 relative"
        style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <h2 class="text-white pt-3 mt-n10">{{ genre.name }} games</h2>
+          <h2 class="text-white pt-3 mt-n7">{{ genre.name }} games</h2>
           <h4 class="text-white pt-5  mt-n5">Click on game title to see game info</h4>
           <div class="col-4 mx-auto">
             <form method="GET" action="" class="form-inline">
@@ -39,34 +36,67 @@
           <tr>
             <th>Game ID</th>
             <th>Game Title</th>
+            <th>Developers</th>
             <th>Date of release</th>
             <th>Metacritic score</th>
+            <th>Backlog</th>
+            {% if user.is_staff %}
+              <th>Update</th>
+              <th>Delete</th>
+            {% endif %}
           </tr>
 
-          {% for object in object_list %}
+          {% for game in object_list %}
             <tr>
               <td>
-                {{ object.id }}
+                {{ game.id }}
               </td>
               <td>
-                <a class="link-white" href="{% url "backlog:game-detail" pk=object.id %} ">{{ object.title }}</a> 🗃️ ❤️
+                <a class="link-white" href="{% url "backlog:game-detail" pk=game.id %} ">{{ game.title }}</a>
               </td>
               <td>
-                {{ object.release_date }}
+                {{ game.developers.all|join:", " }}
               </td>
               <td>
-                {% if object.meta_score %}
+                {{ game.release_date }}
+              </td>
+              <td>
+                {% if game.meta_score %}
                   {{ game.meta_score }}
                 {% else %}
                   N/A
                 {% endif %}
               </td>
+              <td>
+                {% if game in user.games.all %}
+                  <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
+                     class="btn bg-gradient-danger btn-sm w-100 me-1 mb-0 btn-sm">
+                    Remove</a>
+                {% else %}
+                  <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
+                     class="btn bg-gradient-primary btn-sm w-100 me-1 mb-0 btn-sm">
+                    Add
+                  </a>
+                {% endif %}
+              </td>
+              {% if user.is_staff %}
+                <td>
+                  <a href="{% url 'backlog:game-update' pk=game.id %}"
+                     class="btn bg-gradient-primary w-100 me-1 mb-0 btn-sm">
+                    Update </a>
+                </td>
+                <td>
+                  <a href="{% url 'backlog:game-delete' pk=game.id %}"
+                     class="btn bg-gradient-danger w-100 me-1 mb-0 btn-sm">
+                    Delete </a>
+                </td>
+              {% endif %}
             </tr>
           {% endfor %}
         </table>
 
       {% else %}
-        <p>There ane no games in {{ genre.name }}!</p>
+        <h2 class="text-white pt-3 mt-n7">There ane no games in {{ genre.name }}!</h2>
       {% endif %}
       {% block pagination %}
         {% include "includes/pagination.html" %}
@@ -94,7 +124,6 @@
         </li>
       {% endif %}
     </ul>
-
   </div>
 
 {% endblock content %}
