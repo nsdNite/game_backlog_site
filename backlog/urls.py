@@ -18,7 +18,7 @@ from .views import (
     GamerListView,
     GamerCreateView,
     GamerDeleteView,
-    toggle_game_backlog,
+    ToggleGameBacklog,
     TopGameView,
 )
 
@@ -39,7 +39,7 @@ urlpatterns = [
         name="game-delete"),
     path(
         "games/<int:pk>/toggle-backlog/",
-        toggle_game_backlog,
+        ToggleGameBacklog.as_view(),
         name="toggle-game-backlog",
     ),
     path("developers/", DeveloperListView.as_view(), name="developer-list"),
