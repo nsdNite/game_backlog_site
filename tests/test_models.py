@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from backlog.models import Game, Gamer, Developer
+from backlog.models import Game, Developer
 
 
 class ModelTests(TestCase):
