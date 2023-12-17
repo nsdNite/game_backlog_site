@@ -11,7 +11,10 @@ DEVELOPER_URL = reverse("backlog:developer-list")
 
 class PublicListTest(TestCase):
     def setUp(self):
-        self.gamer = Gamer.objects.create_user(username="test_gamer", password="test_password")
+        self.gamer = Gamer.objects.create_user(
+            username="test_gamer",
+            password="test_password"
+        )
         self.developer = Developer.objects.create(name="test_dev")
         self.game = Game.objects.create(
             title="Test_game"
@@ -19,15 +22,27 @@ class PublicListTest(TestCase):
         self.game.developers.set([self.developer])
 
     def test_game_detail_login_required(self):
-        result = self.client.get(reverse("backlog:game-detail", kwargs={'pk': self.game.pk}))
+        result = self.client.get(reverse(
+            "backlog:game-detail",
+            kwargs={'pk': self.game.pk}
+        )
+        )
         self.assertNotEqual(result.status_code, 200)
 
     def test_developer_detail_login_required(self):
-        result = self.client.get(reverse("backlog:developer-detail", kwargs={'pk': self.developer.pk}))
+        result = self.client.get(reverse(
+            "backlog:developer-detail",
+            kwargs={'pk': self.developer.pk}
+        )
+        )
         self.assertNotEqual(result.status_code, 200)
 
     def test_gamer_detail_login_required(self):
-        result = self.client.get(reverse("backlog:gamer-detail", kwargs={'pk': self.gamer.pk}))
+        result = self.client.get(reverse(
+            "backlog:gamer-detail",
+            kwargs={'pk': self.gamer.pk}
+        )
+        )
         self.assertNotEqual(result.status_code, 200)
 
 

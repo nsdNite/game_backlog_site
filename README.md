@@ -10,6 +10,9 @@ Website for tracking your backlog of PC video games available on Steam.
 
 ## Database diagram
 ![Gaming_website.drawio.png](readme_media%2FGaming_website.drawio.png)
+
+Note: categories are for further extension of site.
+
 ## Overview of Functionality
 
 1. **Great index page thanks to the template.**<br>

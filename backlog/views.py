@@ -1,10 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
-from django.views import generic
+from django.views import generic, View
 from django.views.generic.list import MultipleObjectMixin
 
 from backlog.forms import (
@@ -21,54 +20,93 @@ from backlog.models import (
 )
 
 
-def index(request):
-    num_gamers = Gamer.objects.count()
-    num_games = Game.objects.count()
-    num_developers = Developer.objects.count()
+class IndexView(View):
+    template_name = 'backlog/index.html'
 
-    num_visits = request.session.get("num_visits", 0)
-    request.session["num_visits"] = num_visits + 1
+    def get(self, request, *args, **kwargs):
+        num_gamers = Gamer.objects.count()
+        num_games = Game.objects.count()
+        num_developers = Developer.objects.count()
 
-    context = {
-        "num_gamers": num_gamers,
-        "num_games": num_games,
-        "num_developers": num_developers,
-        "num_visits": num_visits + 1,
-    }
+        num_visits = request.session.get("num_visits", 0)
+        request.session["num_visits"] = num_visits + 1
 
-    return render(request, "backlog/index.html", context=context)
+        context = {
+            "num_gamers": num_gamers,
+            "num_games": num_games,
+            "num_developers": num_developers,
+            "num_visits": num_visits + 1,
+        }
 
-
-def top_game(request):
-    top_10_games = Game.objects.order_by("-meta_score")[:10]
-    return render(
-        request,
-        "backlog/top_games.html",
-        {"top_10_games": top_10_games}
-    )
+        return render(request, self.template_name, context=context)
 
 
-@login_required
-def toggle_game_backlog(request, pk):
-    gamer = request.user
-    game = get_object_or_404(Game, id=pk)
-    if game in gamer.games.all():
-        gamer.games.remove(game)
-    else:
-        gamer.games.add(
-            game,
-            through_defaults={'added_to_backlog_at': timezone.now()}
+class TopGameView(View):
+    template_name = 'backlog/top_games.html'
+
+    def get(self, request, *args, **kwargs):
+        top_10_games = Game.objects.order_by("-meta_score")[:10]
+        context = {"top_10_games": top_10_games}
+        return render(request, self.template_name, context=context)
+
+
+class ToggleGameBacklog(View):
+    def get(self, request, pk):
+        gamer = request.user
+        game = get_object_or_404(Game, id=pk)
+        if game in gamer.games.all():
+            gamer.games.remove(game)
+        else:
+            gamer.games.add(
+                game,
+                through_defaults={
+                    "added_to_backlog_at": timezone.now()
+                }
+            )
+            game.added_to_backlog_at = timezone.now()
+            game.save()
+
+        return redirect(request.META.get(
+            "HTTP_REFERER",
+            reverse(
+                "backlog:game-detail",
+                args=[pk]
+            )
         )
-        game.added_to_backlog_at = timezone.now()
-        game.save()
+        )
 
-    return redirect(request.META.get(
-        'HTTP_REFERER',
-        reverse(
-            'backlog:game-detail',
-            args=[pk])
-    )
-    )
+    def post(self, request, pk):
+        return redirect(request.META.get(
+            "HTTP_REFERER",
+            reverse(
+                "backlog:game-detail",
+                args=[pk]
+            )
+        )
+        )
+
+
+# @login_required
+# def toggle_game_backlog(request, pk):
+#     gamer = request.user
+#     game = get_object_or_404(Game, id=pk)
+#     if game in gamer.games.all():
+#         gamer.games.remove(game)
+#     else:
+#         gamer.games.add(
+#             game,
+#             through_defaults={'added_to_backlog_at': timezone.now()}
+#         )
+#         game.added_to_backlog_at = timezone.now()
+#         game.save()
+#
+#     return redirect(request.META.get(
+#         'HTTP_REFERER',
+#         reverse(
+#             'backlog:game-detail',
+#             args=[pk])
+#     )
+#     )
 
 
 class GameListView(generic.ListView):
