@@ -68,3 +68,4 @@ Note: categories are for further extension of site.
 
 11. **Testcases for Forms, Models and Views**
 12. Additional view for TOP 10 GAMES by Metacritic score.
+13. All site views are class-based views.
