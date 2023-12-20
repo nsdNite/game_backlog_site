@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from backlog.models import Gamer, Game, Developer
+from backlog.models import Gamer, Game, Developer, Genre
 
 
 @admin.register(Gamer)
@@ -30,3 +30,4 @@ class GameAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Developer)
+admin.site.register(Genre)
