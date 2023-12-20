@@ -3,7 +3,20 @@
 Website for tracking your backlog of PC video games available on Steam.
 
 # Check it on Render:
-https://games-backlog.onrender.com/
+### https://games-backlog.onrender.com/
+
+### Note:
+Database on Render limited to 1000 instances.
+
+### Credentials for test users:
+Username: Test_User_01<br>
+Password: f7f3rUTdC4DYgJB
+
+Username: Test_User_02<br>
+Password: NuHuBQe3FMCeTtM
+
+Username: Test_user_03<br>
+Password: mBnQN5ejDKuv2C4
 
 ## Credits
 
