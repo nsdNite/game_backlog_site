@@ -366,14 +366,11 @@ tr,
 td,
 th {
     border-color: rgba(200, 200, 200, 0.5);
-    border-style: solid;
-    border-width: 1px;
-}
-
-th:nth-last-child(-n+3),
-td:nth-last-child(-n+3) {
+    border-style: none;
+    border-width: 0;
     text-align: center;
 }
+
 
 label {
     display: inline-block;
@@ -24516,7 +24513,7 @@ html {
 .table td,
 .table th {
     white-space: nowrap;
-    border-radius: 12px;
+    border-radius: 18px;
 }
 
 .table.align-items-center td,

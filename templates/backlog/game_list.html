@@ -31,7 +31,9 @@
             <th>Developers</th>
             <th>Date of release</th>
             <th>Metacritic score</th>
-            <th>Backlog</th>
+            {% if user.is_authenticated %}
+              <th>Backlog</th>
+            {% endif %}
             {% if user.is_staff %}
               <th>Update</th>
               <th>Delete</th>
@@ -59,18 +61,20 @@
                   N/A
                 {% endif %}
               </td>
-              <td>
-                {% if game in user.games.all %}
-                  <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
-                     class="btn bg-gradient-danger btn-sm w-100 me-1 mb-0 btn-sm">
-                    Remove</a>
-                {% else %}
-                  <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
-                     class="btn bg-gradient-primary btn-sm w-100 me-1 mb-0 btn-sm">
-                    Add
-                  </a>
-                {% endif %}
-              </td>
+              {% if user.is_authenticated %}
+                <td>
+                  {% if game in user.games.all %}
+                    <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
+                       class="btn bg-gradient-danger btn-sm w-100 me-1 mb-0 btn-sm">
+                      Remove</a>
+                  {% else %}
+                    <a href="{% url 'backlog:toggle-game-backlog' pk=game.id %}"
+                       class="btn bg-gradient-primary btn-sm w-100 me-1 mb-0 btn-sm">
+                      Add
+                    </a>
+                  {% endif %}
+                </td>
+              {% endif %}
               {% if user.is_staff %}
                 <td>
                   <a href="{% url 'backlog:game-update' pk=game.id %}"
