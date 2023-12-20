@@ -2,6 +2,9 @@
 
 Website for tracking your backlog of PC video games available on Steam.
 
+# Check it on Render:
+https://games-backlog.onrender.com/
+
 ## Credits
 
 - Soft UI Design System for a perfect template: [GitHub Repo](https://github.com/app-generator/django-soft-ui-design)
