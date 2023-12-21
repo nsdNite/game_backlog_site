@@ -39,14 +39,13 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="{% static 'css/soft-design-system.css' %}" rel="stylesheet"/>
 </head>
-
-<body {% block body %}{% endblock body %} >
-
 {% block header %}
 
   {% include 'includes/navigation.html' %}
 
 {% endblock header %}
+
+<body {% block body %}{% endblock body %} >
 
 {% block content %}
 {% endblock content %}
