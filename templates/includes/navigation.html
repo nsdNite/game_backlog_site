@@ -101,7 +101,7 @@
               <img src="https://appsrv1-147a1.kxcdn.com/soft-ui-design-v1.0.1/img/down-arrow-dark.svg" alt="down-arrow"
                    class="arrow ms-1">
             </a>
-            <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3 max-height-vh-15 [hidden]"
+            <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3[hidden]"
                 aria-labelledby="dropdownMenuBlocks">
               <div class="d-none d-lg-block">
                 <a href="{% url 'backlog:gamer-detail' user.id %}" class="dropdown-item border-radius-md">
@@ -133,10 +133,13 @@
 
           </li>
         {% else %}
-          <li class="nav-item">
-            <p class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center mb-0 max-height-vh-15">
-              <a href="{% url 'login' %}"> <strong>Login to access backlog </strong> </a>
-            </p>
+           <li class="nav-item dropdown dropdown-hover mx-2">
+            <!--<p class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center mb-0 max-height-vh-15">
+              <a > <strong>Login to access backlog </strong> </a>
+            </p>-->
+          <a href="{% url 'login' %}" class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center">
+            <strong>Login to access backlog</strong>
+          </a>
           </li>
         {% endif %}
 
