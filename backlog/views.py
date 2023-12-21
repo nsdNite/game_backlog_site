@@ -10,7 +10,7 @@ from backlog.forms import (
     GameSearchForm,
     GamerSearchForm,
     GamerCreationForm,
-    GameCreationForm
+    GameCreationForm, DeveloperSearchForm
 )
 from backlog.models import (
     Developer,
@@ -137,8 +137,20 @@ class DeveloperListView(generic.ListView):
     model = Developer
     paginate_by = 10
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(DeveloperListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = DeveloperSearchForm(
+            initial={"name": name}
+        )
+        return context
+
     def get_queryset(self):
-        return Developer.objects.exclude(id=1)
+        queryset = Developer.objects.exclude(id=1)
+        form = DeveloperSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
+        return self.queryset    
 
 
 class DeveloperDetailView(
