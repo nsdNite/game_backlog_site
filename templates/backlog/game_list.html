@@ -3,23 +3,20 @@
 {% load static %}
 
 {% block content %}
-  <div class="page-header min-vh-100 relative"
-       style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7 text-center mx-auto">
-          <h2 class="text-white pt-3 mt-n7">Browsing all games.</h2>
-          <h4 class="text-white pt-5  mt-n5">Click on game title to see game info</h4>
-          <div class="col-4 mx-auto">
-            <form method="GET" action="" class="form-inline">
-              <div class="input-group">
-                {{ search_form|crispy }}
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-primary">⌕</button>
-                </div>
-              </div>
-            </form>
-          </div>
+  <div class="page-header min-vh-100 relative" style="background-image: url('{% static 'img/backgrounds/background-title.jpeg' %}')">
+
+    <div class="container text-center">
+      <div class="col-lg-7 mx-auto">
+        <h2 class="text-white">Browsing all games.</h2>
+        <h4 class="text-white">Click on game title to see details</h4>
+      </div>
+
+      <div class="input-group" style="max-width: 300px; margin: 0 auto;">
+        <form method="GET" action="">
+          {{ search_form|crispy }}
+        </form>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">⌕</button>
         </div>
       </div>
 
@@ -92,11 +89,15 @@
         </table>
 
       {% else %}
-        <h2 class="text-white pt-3 mt-n7">There are no games!</h2>
+        <div class="mt-4 d-flex align-items-center justify-content-center">
+          <h2 class="text-white">There are no games!</h2>
+        </div>
       {% endif %}
+
       {% block pagination %}
         {% include "includes/pagination.html" %}
       {% endblock %}
+
     </div>
   </div>
 
