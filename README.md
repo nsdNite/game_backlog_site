@@ -10,10 +10,10 @@ Database on Render limited to 1000 instances.
 
 ### Credentials for test users:
 Username: Test_User_01<br>
-Password: f7f3rUTdC4DYgJB
+Password: zmPz>G$swe+s/;23
 
 Username: Test_User_02<br>
-Password: NuHuBQe3FMCeTtM
+Password: zJB8pscIY0vK*KT1
 
 Username: Test_user_03<br>
 Password: mBnQN5ejDKuv2C4

@@ -5,11 +5,12 @@
 {% block body %} class="index-page bg-gray-200" {% endblock body %}
 
 {% block content %}
+
       <div class="container">
         <div class="row">
           <div class="col-lg-5 text-center mx-auto mt-5">
             {% if form.errors %}
-              <p style="color: #fff">Your username and password didn't match. Please try again.</p>
+              <p style="color: #000">Your username and password didn't match. Please try again.</p>
             {% endif %}
 
              <h1 class="text-gradient text-primary pt-5 mt-n5">Log in</h1>
