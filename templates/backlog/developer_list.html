@@ -23,7 +23,6 @@
       {% if developer_list %}
         <table class="table">
           <tr>
-            <th>ID</th>
             <th>Developer name</th>
             <th>Games released</th>
             {% if user.is_staff %}
@@ -34,7 +33,6 @@
 
           {% for developer in developer_list %}
             <tr>
-              <td>{{ developer.id }}</td>
               <td>
                 <a class="link-white"
                    href="{% url 'backlog:developer-detail' pk=developer.id %}">{{ developer.name }}</a>

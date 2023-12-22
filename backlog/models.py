@@ -7,7 +7,7 @@ class Developer(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["name"]
 
     def __str__(self) -> str:
         return self.name
@@ -65,6 +65,7 @@ class Game(models.Model):
     gamers = models.ManyToManyField(
         Gamer,
         related_name="games",
+        blank=True,
     )
     release_date = models.DateField(blank=True, null=True)
     image_url = models.URLField()

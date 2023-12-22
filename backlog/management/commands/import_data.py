@@ -30,7 +30,7 @@ class Command(BaseCommand):
             json_data = json.load(json_file)
             counter = 0
 
-        for game_data in json_data[:1000]:
+        for game_data in json_data[:5000]:
             filtered_data = {
                 key: game_data.get(key)
                 for key in fields_to_load if key in game_data
