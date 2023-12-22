@@ -6,7 +6,7 @@ Website for tracking your backlog of PC video games available on Steam.
 ### https://games-backlog.onrender.com/
 
 ### Note:
-Database on Render limited to 1000 instances.
+Database on Render limited to 5000 instances.
 
 ### Credentials for test users:
 Username: Test_User_01<br>
