@@ -9591,57 +9591,12 @@ fieldset:disabled .btn {
     margin-left: auto !important;
 }
 
-.m-n1 {
-    margin: -0.25rem !important;
-}
-
 .m-n2 {
     margin: -0.5rem !important;
 }
 
-.m-n3 {
-    margin: -1rem !important;
-}
-
-.m-n4 {
-    margin: -1.5rem !important;
-}
-
-.m-n5 {
-    margin: -3rem !important;
-}
-
 .m-n6 {
     margin: -4rem !important;
-}
-
-.m-n7 {
-    margin: -6rem !important;
-}
-
-.m-n8 {
-    margin: -8rem !important;
-}
-
-.m-n9 {
-    margin: -10rem !important;
-}
-
-.m-n10 {
-    margin: -12rem !important;
-}
-
-.m-n11 {
-    margin: -14rem !important;
-}
-
-.m-n12 {
-    margin: -16rem !important;
-}
-
-.mx-n1 {
-    margin-right: -0.25rem !important;
-    margin-left: -0.25rem !important;
 }
 
 .mx-n2 {
@@ -9649,79 +9604,9 @@ fieldset:disabled .btn {
     margin-left: -0.5rem !important;
 }
 
-.mx-n3 {
-    margin-right: -1rem !important;
-    margin-left: -1rem !important;
-}
-
-.mx-n4 {
-    margin-right: -1.5rem !important;
-    margin-left: -1.5rem !important;
-}
-
-.mx-n5 {
-    margin-right: -3rem !important;
-    margin-left: -3rem !important;
-}
-
-.mx-n6 {
-    margin-right: -4rem !important;
-    margin-left: -4rem !important;
-}
-
-.mx-n7 {
-    margin-right: -6rem !important;
-    margin-left: -6rem !important;
-}
-
-.mx-n8 {
-    margin-right: -8rem !important;
-    margin-left: -8rem !important;
-}
-
-.mx-n9 {
-    margin-right: -10rem !important;
-    margin-left: -10rem !important;
-}
-
-.mx-n10 {
-    margin-right: -12rem !important;
-    margin-left: -12rem !important;
-}
-
-.mx-n11 {
-    margin-right: -14rem !important;
-    margin-left: -14rem !important;
-}
-
-.mx-n12 {
-    margin-right: -16rem !important;
-    margin-left: -16rem !important;
-}
-
-.my-n1 {
-    margin-top: -0.25rem !important;
-    margin-bottom: -0.25rem !important;
-}
-
 .my-n2 {
     margin-top: -0.5rem !important;
     margin-bottom: -0.5rem !important;
-}
-
-.my-n3 {
-    margin-top: -1rem !important;
-    margin-bottom: -1rem !important;
-}
-
-.my-n4 {
-    margin-top: -1.5rem !important;
-    margin-bottom: -1.5rem !important;
-}
-
-.my-n5 {
-    margin-top: -3rem !important;
-    margin-bottom: -3rem !important;
 }
 
 .my-n6 {
