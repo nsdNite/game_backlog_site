@@ -10,7 +10,10 @@ import django.utils.timezone
 class Migration(migrations.Migration):
     replaces = [
         ("backlog", "0001_initial"),
-        ("backlog", "0002_alter_developer_options_remove_game_developer_and_more"),
+        (
+            "backlog",
+            "0002_alter_developer_options_remove_game_developer_and_more",
+        ),
         ("backlog", "0003_alter_game_options_alter_gamer_options"),
         ("backlog", "0004_alter_game_options"),
     ]
@@ -34,7 +37,10 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "password",
+                    models.CharField(max_length=128, verbose_name="password"),
+                ),
                 (
                     "last_login",
                     models.DateTimeField(
@@ -79,7 +85,9 @@ class Migration(migrations.Migration):
                 (
                     "email",
                     models.EmailField(
-                        blank=True, max_length=254, verbose_name="email address"
+                        blank=True,
+                        max_length=254,
+                        verbose_name="email address",
                     ),
                 ),
                 (
@@ -101,7 +109,8 @@ class Migration(migrations.Migration):
                 (
                     "date_joined",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="date joined"
+                        default=django.utils.timezone.now,
+                        verbose_name="date joined",
                     ),
                 ),
                 (
@@ -209,7 +218,9 @@ class Migration(migrations.Migration):
                 ("image_url", models.URLField()),
                 (
                     "category",
-                    models.ManyToManyField(related_name="games", to="backlog.category"),
+                    models.ManyToManyField(
+                        related_name="games", to="backlog.category"
+                    ),
                 ),
                 (
                     "gamers",
@@ -219,9 +230,14 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "genre",
-                    models.ManyToManyField(related_name="games", to="backlog.genre"),
+                    models.ManyToManyField(
+                        related_name="games", to="backlog.genre"
+                    ),
                 ),
-                ("added_to_backlog_at", models.DateTimeField(blank=True, null=True)),
+                (
+                    "added_to_backlog_at",
+                    models.DateTimeField(blank=True, null=True),
+                ),
                 (
                     "developers",
                     models.ManyToManyField(

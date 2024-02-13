@@ -29,14 +29,11 @@ urlpatterns = [
     path("games/top100/", TopGameView.as_view(), name="top_game"),
     path("games/create/", GameCreateView.as_view(), name="game-create"),
     path(
-        "games/<int:pk>/update/",
-        GameUpdateView.as_view(),
-        name="game-update"
+        "games/<int:pk>/update/", GameUpdateView.as_view(), name="game-update"
     ),
     path(
-        "games/<int:pk>/delete/",
-        GameDeleteView.as_view(),
-        name="game-delete"),
+        "games/<int:pk>/delete/", GameDeleteView.as_view(), name="game-delete"
+    ),
     path(
         "games/<int:pk>/toggle-backlog/",
         ToggleGameBacklog.as_view(),
@@ -46,40 +43,33 @@ urlpatterns = [
     path(
         "developers/<int:pk>/",
         DeveloperDetailView.as_view(),
-        name="developer-detail"
+        name="developer-detail",
     ),
     path(
         "developers/create/",
         DeveloperCreateView.as_view(),
-        name="developer-create"
+        name="developer-create",
     ),
     path(
         "developers/<int:pk>/update/",
         DeveloperUpdateView.as_view(),
-        name="developer-update"
+        name="developer-update",
     ),
     path(
         "developers/<int:pk>/delete/",
         DeveloperDeleteView.as_view(),
-        name="developer-delete"
+        name="developer-delete",
     ),
     path("genres/", GenreListView.as_view(), name="genre-list"),
     path("genres/<int:pk>/", GenreDetailView.as_view(), name="genre-detail"),
     path("gamers/", GamerListView.as_view(), name="gamer-list"),
-    path(
-        "gamers/<int:pk>/",
-        GamerDetailView.as_view(),
-        name="gamer-detail"
-    ),
-    path(
-        "gamers/create/",
-        GamerCreateView.as_view(),
-        name="gamer-create"
-    ),
+    path("gamers/<int:pk>/", GamerDetailView.as_view(), name="gamer-detail"),
+    path("gamers/create/", GamerCreateView.as_view(), name="gamer-create"),
     path(
         "gamers/<int:pk>/delete/",
         GamerDeleteView.as_view(),
-        name="gamer-delete"),
+        name="gamer-delete",
+    ),
 ]
 
 app_name = "backlog"

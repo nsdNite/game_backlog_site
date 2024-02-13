@@ -10,18 +10,14 @@ from backlog.forms import (
     GameSearchForm,
     GamerSearchForm,
     GamerCreationForm,
-    GameCreationForm, DeveloperSearchForm
+    GameCreationForm,
+    DeveloperSearchForm,
 )
-from backlog.models import (
-    Developer,
-    Game,
-    Gamer,
-    Genre
-)
+from backlog.models import Developer, Game, Gamer, Genre
 
 
 class IndexView(View):
-    template_name = 'backlog/index.html'
+    template_name = "backlog/index.html"
 
     def get(self, request, *args, **kwargs):
         num_gamers = Gamer.objects.count()
@@ -42,7 +38,7 @@ class IndexView(View):
 
 
 class TopGameView(View):
-    template_name = 'backlog/top_games.html'
+    template_name = "backlog/top_games.html"
 
     def get(self, request, *args, **kwargs):
         top_10_games = Game.objects.order_by("-meta_score")[:10]
@@ -58,55 +54,23 @@ class ToggleGameBacklog(View):
             gamer.games.remove(game)
         else:
             gamer.games.add(
-                game,
-                through_defaults={
-                    "added_to_backlog_at": timezone.now()
-                }
+                game, through_defaults={"added_to_backlog_at": timezone.now()}
             )
             game.added_to_backlog_at = timezone.now()
             game.save()
 
-        return redirect(request.META.get(
-            "HTTP_REFERER",
-            reverse(
-                "backlog:game-detail",
-                args=[pk]
+        return redirect(
+            request.META.get(
+                "HTTP_REFERER", reverse("backlog:game-detail", args=[pk])
             )
-        )
         )
 
     def post(self, request, pk):
-        return redirect(request.META.get(
-            "HTTP_REFERER",
-            reverse(
-                "backlog:game-detail",
-                args=[pk]
+        return redirect(
+            request.META.get(
+                "HTTP_REFERER", reverse("backlog:game-detail", args=[pk])
             )
         )
-        )
-
-
-# @login_required
-# def toggle_game_backlog(request, pk):
-#     gamer = request.user
-#     game = get_object_or_404(Game, id=pk)
-#     if game in gamer.games.all():
-#         gamer.games.remove(game)
-#     else:
-#         gamer.games.add(
-#             game,
-#             through_defaults={'added_to_backlog_at': timezone.now()}
-#         )
-#         game.added_to_backlog_at = timezone.now()
-#         game.save()
-#
-#     return redirect(request.META.get(
-#         'HTTP_REFERER',
-#         reverse(
-#             'backlog:game-detail',
-#             args=[pk])
-#     )
-#     )
 
 
 class GameListView(generic.ListView):
@@ -116,9 +80,7 @@ class GameListView(generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(GameListView, self).get_context_data(**kwargs)
         title = self.request.GET.get("title", "")
-        context["search_form"] = GameSearchForm(
-            initial={"title": title}
-        )
+        context["search_form"] = GameSearchForm(initial={"title": title})
         return context
 
     def get_queryset(self):
@@ -140,9 +102,7 @@ class DeveloperListView(generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DeveloperListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
-        context["search_form"] = DeveloperSearchForm(
-            initial={"name": name}
-        )
+        context["search_form"] = DeveloperSearchForm(initial={"name": name})
         return context
 
     def get_queryset(self):
@@ -150,13 +110,11 @@ class DeveloperListView(generic.ListView):
         form = DeveloperSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
-        return self.queryset    
+        return self.queryset
 
 
 class DeveloperDetailView(
-    LoginRequiredMixin,
-    generic.DetailView,
-    MultipleObjectMixin
+    LoginRequiredMixin, generic.DetailView, MultipleObjectMixin
 ):
     model = Developer
     paginate_by = 10
@@ -192,9 +150,7 @@ class GenreListView(generic.ListView):
 
 
 class GenreDetailView(
-    LoginRequiredMixin,
-    generic.DetailView,
-    MultipleObjectMixin
+    LoginRequiredMixin, generic.DetailView, MultipleObjectMixin
 ):
     model = Genre
     paginate_by = 10
@@ -204,14 +160,14 @@ class GenreDetailView(
 
         search_form = GameSearchForm(self.request.GET)
         if search_form.is_valid():
-            title = search_form.cleaned_data.get('title')
+            title = search_form.cleaned_data.get("title")
             if title:
                 object_list = object_list.filter(title__icontains=title)
 
         context = super(GenreDetailView, self).get_context_data(
             object_list=object_list, **kwargs
         )
-        context['search_form'] = search_form
+        context["search_form"] = search_form
         return context
 
 
@@ -257,10 +213,11 @@ class GameCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("backlog:game-list")
 
     def form_valid(self, form):
-        developer_names = form.cleaned_data.get('developers', '').split(',')
+        developer_names = form.cleaned_data.get("developers", "").split(",")
         developers = [
             Developer.objects.get_or_create(name=name.strip())[0]
-            for name in developer_names if name.strip()
+            for name in developer_names
+            if name.strip()
         ]
         form.instance.save()
         form.instance.developers.set(developers)

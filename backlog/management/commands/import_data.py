@@ -22,18 +22,17 @@ class Command(BaseCommand):
             "meta_score",
         ]
 
-        Developer.objects.get_or_create(
-            name="Unknown"
-        )
+        Developer.objects.get_or_create(name="Unknown")
 
-        with open(json_path, "r", encoding='ISO-8859-1') as json_file:
+        with open(json_path, "r", encoding="ISO-8859-1") as json_file:
             json_data = json.load(json_file)
             counter = 0
 
         for game_data in json_data[:5000]:
             filtered_data = {
                 key: game_data.get(key)
-                for key in fields_to_load if key in game_data
+                for key in fields_to_load
+                if key in game_data
             }
             developers_name = filtered_data.get("developers")
             category_names = filtered_data.get("categories")
@@ -41,10 +40,9 @@ class Command(BaseCommand):
 
             # Creating developers
             if developers_name:
-                developers_names = (str(developers_name).split(","))
+                developers_names = str(developers_name).split(",")
                 developers = [
-                    Developer.objects.get_or_create(
-                        name=developer.strip())[0]
+                    Developer.objects.get_or_create(name=developer.strip())[0]
                     for developer in developers_names
                 ]
             else:
@@ -57,8 +55,7 @@ class Command(BaseCommand):
             if genre_names:
                 genre_names = filtered_data.get("genres", "").split(",")
                 genres = [
-                    Genre.objects.get_or_create(
-                        name=genre.strip())[0]
+                    Genre.objects.get_or_create(name=genre.strip())[0]
                     for genre in genre_names
                 ]
 
@@ -66,8 +63,7 @@ class Command(BaseCommand):
             if category_names:
                 category_names = category_names.split(",")
                 categories = [
-                    Category.objects.get_or_create(
-                        name=category.strip())[0]
+                    Category.objects.get_or_create(name=category.strip())[0]
                     for category in category_names
                 ]
 
@@ -84,7 +80,7 @@ class Command(BaseCommand):
                     description=filtered_data.get("description"),
                     meta_score=filtered_data.get("meta_score"),
                     release_date=filtered_data.get("published_meta"),
-                    image_url=filtered_data.get("image")
+                    image_url=filtered_data.get("image"),
                 )
                 new_game.developers.set(developers)
                 new_game.genre.set(genres)
