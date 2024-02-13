@@ -28,7 +28,10 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("password", models.CharField(max_length=128, verbose_name="password")),
+                (
+                    "password",
+                    models.CharField(max_length=128, verbose_name="password"),
+                ),
                 (
                     "last_login",
                     models.DateTimeField(
@@ -73,7 +76,9 @@ class Migration(migrations.Migration):
                 (
                     "email",
                     models.EmailField(
-                        blank=True, max_length=254, verbose_name="email address"
+                        blank=True,
+                        max_length=254,
+                        verbose_name="email address",
                     ),
                 ),
                 (
@@ -95,7 +100,8 @@ class Migration(migrations.Migration):
                 (
                     "date_joined",
                     models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="date joined"
+                        default=django.utils.timezone.now,
+                        verbose_name="date joined",
                     ),
                 ),
                 (
@@ -200,10 +206,15 @@ class Migration(migrations.Migration):
                 ("meta_score", models.IntegerField()),
                 ("release_date", models.DateField()),
                 ("image_url", models.URLField()),
-                ("image", models.ImageField(blank=True, null=True, upload_to="")),
+                (
+                    "image",
+                    models.ImageField(blank=True, null=True, upload_to=""),
+                ),
                 (
                     "category",
-                    models.ManyToManyField(related_name="games", to="backlog.category"),
+                    models.ManyToManyField(
+                        related_name="games", to="backlog.category"
+                    ),
                 ),
                 (
                     "developer",
@@ -221,7 +232,9 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "genre",
-                    models.ManyToManyField(related_name="games", to="backlog.genre"),
+                    models.ManyToManyField(
+                        related_name="games", to="backlog.genre"
+                    ),
                 ),
             ],
         ),

@@ -10,10 +10,8 @@ class GameSearchForm(forms.Form):
         required=False,
         label="",
         widget=forms.TextInput(
-            attrs={
-                "placeholder": "Search game by title..."
-            }
-        )
+            attrs={"placeholder": "Search game by title..."}
+        ),
     )
 
 
@@ -22,11 +20,7 @@ class GamerSearchForm(forms.Form):
         max_length=255,
         required=False,
         label=False,
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Search user..."
-            }
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search user..."}),
     )
 
 
@@ -36,10 +30,8 @@ class DeveloperSearchForm(forms.Form):
         required=False,
         label="",
         widget=forms.TextInput(
-            attrs={
-                "placeholder": "Search developer by name..."
-            }
-        )
+            attrs={"placeholder": "Search developer by name..."}
+        ),
     )
 
 
@@ -59,5 +51,5 @@ class GameCreationForm(forms.ModelForm):
 
     developers = forms.CharField(max_length=100)
     release_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'})
+        widget=forms.DateInput(attrs={"type": "date"})
     )

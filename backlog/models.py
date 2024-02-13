@@ -49,18 +49,9 @@ class Genre(models.Model):
 class Game(models.Model):
     title = models.CharField(max_length=255, unique=False)
     description = models.TextField(blank=True, null=True)
-    developers = models.ManyToManyField(
-        Developer,
-        related_name="games"
-    )
-    genre = models.ManyToManyField(
-        Genre,
-        related_name="games"
-    )
-    category = models.ManyToManyField(
-        Category,
-        related_name="games"
-    )
+    developers = models.ManyToManyField(Developer, related_name="games")
+    genre = models.ManyToManyField(Genre, related_name="games")
+    category = models.ManyToManyField(Category, related_name="games")
     meta_score = models.IntegerField(blank=True, null=True)
     gamers = models.ManyToManyField(
         Gamer,
