@@ -9,20 +9,19 @@ Website for tracking your backlog of PC video games available on Steam.
 Database on Render limited to 5000 instances.
 
 ## Technologies
-Django
-Dkango ORM
-Postgres
-On-render
-
+Django  
+Dkango ORM  
+Postgres  
+On-render  
 
 ## Test credentials 🔓
-Username: Test_User_01<br>
+Username: Test_User_01<br>  
 Password: zmPz>G$swe+s/;23
 
-Username: Test_User_02<br>
+Username: Test_User_02<br>  
 Password: zJB8pscIY0vK*KT1
 
-Username: Test_user_03<br>
+Username: Test_user_03<br>  
 Password: mBnQN5ejDKuv2C4
 
 ## Credits
@@ -36,7 +35,7 @@ Password: mBnQN5ejDKuv2C4
 
 Note: categories are for further extension of site.
 
-## Overview of Functionality
+## Features
 
 1. **Great index page thanks to the template.**<br>
    ![Image 1](readme_media/img.png)
@@ -85,10 +84,10 @@ Note: categories are for further extension of site.
    ![Image 14](readme_media/img_14.png)<br>
 
 10. **Additional logic**
-    Data in JSON format similar to Leinstay's database can be added via:
+    Data in JSON format similar to Leinstay's database can be added via:  
 
 > python manage.py importdata
 
-11. **Testcases for Forms, Models and Views**
-12. **Additional view for TOP 10 GAMES by Metacritic score.**
-13. **All site views are class-based views.**
+11. **Testcases for Forms, Models and Views**  
+12. **Additional view for TOP 10 GAMES by Metacritic score.**  
+13. **All site views are class-based views.**  
